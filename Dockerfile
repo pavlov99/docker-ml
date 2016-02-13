@@ -3,6 +3,10 @@ MAINTAINER Kirill Pavlov <kirill.pavlov@phystech.edu>
 
 RUN apk add --update \
     python3 \
-    python3-dev
+    python3-dev \
+    openssl
+
+RUN wget https://bootstrap.pypa.io/get-pip.py
+RUN python3 get-pip.py
 
 CMD ["/bin/sh"]
