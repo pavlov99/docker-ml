@@ -1,5 +1,5 @@
 build:
-	docker build -t pavlov99/ml .
+	docker build -t pavlov99/ml --force-rm .
 
 run:
 	docker run -it --rm pavlov99/ml /bin/sh
