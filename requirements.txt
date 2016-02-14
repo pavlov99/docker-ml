@@ -1,3 +1,2 @@
 jupyter==1.0.0
-# Cython==0.23.4
-# numpy==1.9.3  # 1.10.4 raises error. NOTE: check lapack and blas connection.
+numpy==1.9.3  # 1.10.4/1.11.0b3 raises error.
