@@ -31,6 +31,15 @@ ADD . /app
 
 RUN pip install --requirement /app/requirements.txt
 
+RUN apk add --update \
+  --repository "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" \
+  --repository "@community http://dl-1.alpinelinux.org/alpine/edge/community/" \
+    # dependency for matplotlib
+    freetype \
+    freetype-dev
+
+RUN pip install matplotlib==1.5.1
+
 WORKDIR /notebooks
 
 ENTRYPOINT ["tini", "--"]
