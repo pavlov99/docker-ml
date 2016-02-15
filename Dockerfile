@@ -24,10 +24,8 @@ RUN cd /tmp && wget -q --no-check-certificate https://bootstrap.pypa.io/get-pip.
 # RUN apk add zeromq readline
 
 RUN ar r /usr/lib/libopenblas.a /usr/lib/libopenblas.so.3
-# ENV BLAS=/usr/lib/libopenblas.a
 
 RUN ar r /usr/lib/liblapack.a /usr/lib/liblapack.so.3
-# ENV LAPACK=/usr/lib/liblapack.a
 
 ADD . /app
 
