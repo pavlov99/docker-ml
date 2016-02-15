@@ -29,12 +29,14 @@ RUN pip install \
     xgboost==0.4a30 \
     plotly==1.9.5 \
     sympy==0.7.6.1 \
-    Theano==0.7.0 \
-    Keras==0.3.2 \
-    Lasagne==0.1 \
     scikit-learn==0.17
 
 RUN pip install jupyter==1.0.0
+
+RUN pip install \
+    Theano==0.7.0 \
+    Keras==0.3.2 \
+    https://github.com/Lasagne/Lasagne/archive/master.zip
 
 # RUN pip3 install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.6.0-cp34-none-linux_x86_64.whl
 
