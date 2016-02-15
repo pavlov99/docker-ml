@@ -1,16 +1,17 @@
 FROM alpine:3.3
 MAINTAINER Kirill Pavlov <kirill.pavlov@phystech.edu>
 
-RUN echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-
 RUN apk add --update \
+  --repository "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" \
+  --repository "@community http://dl-1.alpinelinux.org/alpine/edge/community/" \
     build-base \
     wget \
     'python3>=3.5.1-r0' \
     'python3-dev>=3.5.1-r0' \
     gfortran \
     openblas@testing \
-    lapack@testing
+    lapack@testing \
+    tini@community
     # py-numpy@testing=1.10.4-r0 \
     # py-scipy@testing=0.17.0-r0 \
     # py-pip \
@@ -32,7 +33,6 @@ ADD . /app
 
 RUN pip install --requirement /app/requirements.txt
 
-# RUN virtualenv --python=python3 --no-site-packages /env \
-  # && /env/bin/pip install --requirement /app/requirements.txt
-
 WORKDIR /notebooks
+
+ENTRYPOINT ["tini", "--"]
