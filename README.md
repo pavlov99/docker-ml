@@ -1,23 +1,18 @@
 Docker machine learning tools
 =============================
 
-![Docker Stars](https://img.shields.io/docker/stars/pavlov99/ml.svg)
-![Docker Pulls](https://img.shields.io/docker/pulls/pavlov99/ml.svg)
-[![Image Size](https://img.shields.io/imagelayers/image-size/pavlov99/ml/latest.svg)](https://imagelayers.io/?images=pavlov99/ml:latest)
-[![Image Layers](https://img.shields.io/imagelayers/layers/pavlov99/ml/latest.svg)](https://imagelayers.io/?images=pavlov99/ml:latest)
+[![Docker Stars](https://img.shields.io/docker/stars/pavlov99/ml.svg)](https://hub.docker.com/r/pavlov99/ml/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/pavlov99/ml.svg)](https://hub.docker.com/r/pavlov99/ml/)
 
-Based on Alpine Linux 3.3, uses python 3.5.
+Based on Ubuntu Linux 16.04, uses python 3.5 and machine learning libraries.
 
 Docker Hub: https://hub.docker.com/r/pavlov99/ml/
 GitHub: https://github.com/pavlov99/docker-ml
 
-Docker image
+Pull Docker image:
 
     docker pull pavlov99/ml
 
+Run its IPython notebook:
 
-Notes:
-------
-
-* Add more repositories: https://github.com/gliderlabs/docker-alpine/issues/55#issuecomment-162464246
-* ATLAS source page: http://math-atlas.sourceforge.net/  (v 3.10.2)
+    mkdir $(pwd)/data-science-notebooks && docker run -v $(pwd)/data-science-notebooks:/notebooks -p 8888:8888 -it --rm pavlov99/ml jupyter-notebook --ip=0.0.0.0 --no-browser
