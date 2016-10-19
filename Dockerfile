@@ -1,45 +1,44 @@
-FROM alpine:3.3
+FROM ubuntu:16.04
 MAINTAINER Kirill Pavlov <kirill.pavlov@phystech.edu>
 
-RUN apk add --update \
-  --repository "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" \
-  --repository "@community http://dl-1.alpinelinux.org/alpine/edge/community/" \
-    build-base \
-    wget \
-    'python3>=3.5.1-r0' \
-    'python3-dev>=3.5.1-r0' \
-    gfortran \
-    openblas@testing \
-    lapack@testing \
-    tini@community
-    # py-numpy@testing=1.10.4-r0 \
-    # py-scipy@testing=0.17.0-r0 \
-    # py-pip \
-  # && pip install --upgrade pip \
-  # && pip install virtualenv \
-  # && rm -rf /var/cache/apk/*
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    python3.5-minimal \
+    python3.5-dev \
+    python3-pip \
+    # numpy
+    liblapack-dev \
+    libopenblas-dev \
+    libatlas-base-dev \
+    # matplotlib
+    libxft-dev \
+    libfreetype6-dev
 
-RUN cd /tmp && wget -q --no-check-certificate https://bootstrap.pypa.io/get-pip.py && python3 /tmp/get-pip.py
+RUN pip3 install --upgrade pip
 
-# RUN apk add zeromq readline
+ENV TINI_VERSION v0.9.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
 
-RUN ar r /usr/lib/libopenblas.a /usr/lib/libopenblas.so.3
+RUN pip install \
+    numpy==1.11.2 \
+    scipy==0.18.1 \
+    matplotlib==1.5.3 \
+    pandas==0.19.0 \
+    seaborn==0.7.1 \
+    xgboost==0.6a2 \
+    plotly==1.12.9 \
+    sympy==1.0 \
+    scikit-learn==0.18 \
+    jupyter==1.0.0
 
-RUN ar r /usr/lib/liblapack.a /usr/lib/liblapack.so.3
+RUN pip install \
+    Theano==0.8.2 \
+    Keras==1.1.0 \
+    https://github.com/Lasagne/Lasagne/archive/master.zip
 
-ADD . /app
-
-RUN pip install --requirement /app/requirements.txt
-
-RUN apk add --update \
-  --repository "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" \
-  --repository "@community http://dl-1.alpinelinux.org/alpine/edge/community/" \
-    # dependency for matplotlib
-    freetype \
-    freetype-dev
-
-RUN pip install matplotlib==1.5.1
+# RUN pip3 install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.6.0-cp34-none-linux_x86_64.whl
 
 WORKDIR /notebooks
 
-ENTRYPOINT ["tini", "--"]
+ENTRYPOINT ["/tini", "--"]
