@@ -20,22 +20,21 @@ ENV TINI_VERSION v0.9.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 RUN chmod +x /tini
 
-RUN pip install numpy==1.10.4
-RUN pip install scipy==0.17.0
-RUN pip install matplotlib==1.5.1
 RUN pip install \
-    pandas==0.17.1 \
-    seaborn==0.7.0 \
-    xgboost==0.4a30 \
-    plotly==1.9.5 \
-    sympy==0.7.6.1 \
-    scikit-learn==0.17
-
-RUN pip install jupyter==1.0.0
+    numpy==1.11.2 \
+    scipy==0.18.1 \
+    matplotlib==1.5.3 \
+    pandas==0.19.0 \
+    seaborn==0.7.1 \
+    xgboost==0.6a2 \
+    plotly==1.12.9 \
+    sympy==1.0 \
+    scikit-learn==0.18 \
+    jupyter==1.0.0
 
 RUN pip install \
-    Theano==0.7.0 \
-    Keras==0.3.2 \
+    Theano==0.8.2 \
+    Keras==1.1.0 \
     https://github.com/Lasagne/Lasagne/archive/master.zip
 
 # RUN pip3 install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.6.0-cp34-none-linux_x86_64.whl
